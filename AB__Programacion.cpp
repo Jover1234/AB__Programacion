@@ -16,19 +16,17 @@ public:
     std::string FechaIngreso;
     std::string fechaBaja;
 
-    //Construcor
-public:
+    // Constructor
     Paciente(std::string nombre, std::string apellidos, std::string DNI, std::string sexo, int edad,
-    std::string FechaNacimiento, std::string FechaIngreso, std::string FechaBaja) : nombre(nombre),
-    apellidos(apellidos), DNI(DNI), sexo(sexo), edad(edad), FechaNacimiento(FechaNacimiento),
-    FechaIngreso(FechaIngreso), fechaBaja(FechaBaja) {};
-
-
+        std::string FechaNacimiento, std::string FechaIngreso, std::string FechaBaja)
+        : nombre(nombre), apellidos(apellidos), DNI(DNI), sexo(sexo), edad(edad),
+        FechaNacimiento(FechaNacimiento), FechaIngreso(FechaIngreso), fechaBaja(FechaBaja) {
+    }
 };
 
 std::vector<Paciente> pacientes;
+
 void altaPaciente() {
-    //declaracion de variable en la funcion
     std::string nombre, apellidos, DNI, sexo, FechaNacimiento, FechaIngreso, FechaBaja;
     int edad;
 
@@ -49,19 +47,19 @@ void altaPaciente() {
     std::cout << "Fecha de Baja: ";
     std::cin >> FechaBaja;
 
-    // Crear un constructor de la clase Paciente
-    Paciente nuevoPaciente(nombre, apellidos, DNI, sexo, edad, FechaNacimiento, FechaIngreso,
-        FechaBaja);
-
-    // Agregar el paciente al vector
+    Paciente nuevoPaciente(nombre, apellidos, DNI, sexo, edad, FechaNacimiento, FechaIngreso, FechaBaja);
     pacientes.push_back(nuevoPaciente);
 
-    std::cout << "el Paciente " << nombre << " " << apellidos << " con DNI: " << DNI << " se ha dado de alta correctamente\n";
+    std::cout << "El paciente " << nombre << " " << apellidos << " con DNI: " << DNI
+        << " se ha dado de alta correctamente.\n";
 }
 
-void MostarPacientes() {
-    std::cout << "\nPacientes: \n";
-    for (int i = 0; i < pacientes.size(); i++) {
+void mostrarPacientes() {
+    if (pacientes.empty()) {
+        std::cout << "No hay pacientes registrados.\n";
+        return;
+    }
+    for (size_t i = 0; i < pacientes.size(); i++) {
         std::cout << "Paciente " << i + 1 << ":\n";
         std::cout << "Nombre: " << pacientes[i].nombre << " " << pacientes[i].apellidos << "\n";
         std::cout << "DNI: " << pacientes[i].DNI << "\n";
@@ -73,12 +71,31 @@ void MostarPacientes() {
     }
 }
 
+void modificarPaciente(Paciente& paciente) {
+    std::cout << "Nombre: ";
+    std::cin >> paciente.nombre;
+    std::cout << "Apellidos: ";
+    std::cin >> paciente.apellidos;
+    std::cout << "Sexo: ";
+    std::cin >> paciente.sexo;
+    std::cout << "Edad: ";
+    std::cin >> paciente.edad;
+    std::cout << "Fecha de Nacimiento: ";
+    std::cin >> paciente.FechaNacimiento;
+    std::cout << "Fecha de Ingreso: ";
+    std::cin >> paciente.FechaIngreso;
+    std::cout << "Fecha de Baja: ";
+    std::cin >> paciente.fechaBaja;
 
-void BuscarPacientesDNI() {
+    std::cout << "Datos modificados con éxito.\n";
+}
+
+void buscarPacienteDNI() {
     std::string BuscarDNI;
-    std::cout << "DNI : ";
+    std::cout << "DNI: ";
     std::cin >> BuscarDNI;
-    for (int i = 0; i < pacientes.size(); i++) {
+
+    for (size_t i = 0; i < pacientes.size(); i++) {
         if (pacientes[i].DNI == BuscarDNI) {
             std::cout << "Paciente " << i + 1 << ":\n";
             std::cout << "Nombre: " << pacientes[i].nombre << " " << pacientes[i].apellidos << "\n";
@@ -88,15 +105,26 @@ void BuscarPacientesDNI() {
             std::cout << "Fecha de Nacimiento: " << pacientes[i].FechaNacimiento << "\n";
             std::cout << "Fecha de Ingreso: " << pacientes[i].FechaIngreso << "\n";
             std::cout << "Fecha de Baja: " << pacientes[i].fechaBaja << "\n";
-        }
-    };
-};
 
-void BuscarPacientesNombre() {
+            std::string respuesta;
+            std::cout << "¿Quieres modificar los datos de este paciente? (si/no): ";
+            std::cin >> respuesta;
+
+            if (respuesta == "si") {
+                modificarPaciente(pacientes[i]);
+            }
+            return;
+        }
+    }
+    std::cout << "Paciente con DNI " << BuscarDNI << " no encontrado.\n";
+}
+
+void buscarPacienteNombre() {
     std::string BuscarNombre;
-    std::cout << "Nombre : ";
+    std::cout << "Nombre: ";
     std::cin >> BuscarNombre;
-    for (int i = 0; i < pacientes.size(); i++) {
+
+    for (size_t i = 0; i < pacientes.size(); i++) {
         if (pacientes[i].nombre == BuscarNombre) {
             std::cout << "Paciente " << i + 1 << ":\n";
             std::cout << "Nombre: " << pacientes[i].nombre << " " << pacientes[i].apellidos << "\n";
@@ -106,15 +134,26 @@ void BuscarPacientesNombre() {
             std::cout << "Fecha de Nacimiento: " << pacientes[i].FechaNacimiento << "\n";
             std::cout << "Fecha de Ingreso: " << pacientes[i].FechaIngreso << "\n";
             std::cout << "Fecha de Baja: " << pacientes[i].fechaBaja << "\n";
-        }
-    };
-};
 
-void BuscarPacientesFechaIngreso() {
+            std::string respuesta;
+            std::cout << "¿Quieres modificar los datos de este paciente? (si/no): ";
+            std::cin >> respuesta;
+
+            if (respuesta == "si") {
+                modificarPaciente(pacientes[i]);
+            }
+            return;
+        }
+    }
+    std::cout << "Paciente con Nombre " << BuscarNombre << " no encontrado.\n";
+}
+
+void buscarPacienteFechaIngreso() {
     std::string BuscarFechaIngreso;
-    std::cout << "FechaIngreso : ";
+    std::cout << "FechaIngreso: ";
     std::cin >> BuscarFechaIngreso;
-    for (int i = 0; i < pacientes.size(); i++) {
+
+    for (size_t i = 0; i < pacientes.size(); i++) {
         if (pacientes[i].FechaIngreso == BuscarFechaIngreso) {
             std::cout << "Paciente " << i + 1 << ":\n";
             std::cout << "Nombre: " << pacientes[i].nombre << " " << pacientes[i].apellidos << "\n";
@@ -124,9 +163,21 @@ void BuscarPacientesFechaIngreso() {
             std::cout << "Fecha de Nacimiento: " << pacientes[i].FechaNacimiento << "\n";
             std::cout << "Fecha de Ingreso: " << pacientes[i].FechaIngreso << "\n";
             std::cout << "Fecha de Baja: " << pacientes[i].fechaBaja << "\n";
+
+            std::string respuesta;
+            std::cout << "¿Quieres modificar los datos de este paciente? (si/no): ";
+            std::cin >> respuesta;
+
+            if (respuesta == "si") {
+                modificarPaciente(pacientes[i]);
+            }
+            return;
         }
-    };
-};
+    }
+    std::cout << "Paciente con FechaIngreso " << BuscarFechaIngreso << " no encontrado.\n";
+}
+
+
 
 class Medico {
 public:
@@ -136,19 +187,16 @@ public:
     std::string especialidad;
     std::string disponibilidad;
 
-    // Constructor
-    Medico(std::string nombre, std::string apellidos, std::string DNI, std::string especialidad, std::string disponibilidad)
+    Medico(std::string nombre, std::string apellidos, std::string DNI, std::string especialidad,
+        std::string disponibilidad)
         : nombre(nombre), apellidos(apellidos), DNI(DNI), especialidad(especialidad), disponibilidad(disponibilidad) {
     }
 };
 
-// Vector para almacenar los médicos
 std::vector<Medico> medicos;
 
-// Función para dar de alta a un médico
 void altaMedico() {
-    std::string nombre, apellidos, DNI, especialidad,disponibilidad;
-
+    std::string nombre, apellidos, DNI, especialidad, disponibilidad;
 
     std::cout << "Nombre: ";
     std::cin >> nombre;
@@ -161,54 +209,122 @@ void altaMedico() {
     std::cout << "Disponibilidad: ";
     std::cin >> disponibilidad;
 
-
-    // Crear un nuevo médico
     Medico nuevoMedico(nombre, apellidos, DNI, especialidad, disponibilidad);
-
-    // Agregar el médico al vector
     medicos.push_back(nuevoMedico);
 
-    std::cout << "El médico " << nombre << " " << apellidos << " con DNI: " << DNI << " ha sido dado de alta correctamente.\n";
+    std::cout << "El médico " << nombre << " " << apellidos << " con DNI: " << DNI
+        << " ha sido dado de alta correctamente.\n";
 }
 
-void MostrarMedicos() {
-    std::cout << "\nMédicos: \n";
+void mostrarMedicos() {
+    if (medicos.empty()) {
+        std::cout << "No hay médicos registrados.\n";
+        return;
+    }
     for (size_t i = 0; i < medicos.size(); i++) {
         std::cout << "Médico " << i + 1 << ":\n";
         std::cout << "Nombre: " << medicos[i].nombre << " " << medicos[i].apellidos << "\n";
         std::cout << "DNI: " << medicos[i].DNI << "\n";
         std::cout << "Especialidad: " << medicos[i].especialidad << "\n";
         std::cout << "Disponibilidad: " << medicos[i].disponibilidad << "\n";
-    };
-};
+    }
+}
+
 int main() {
-    std::string respuesta;
+    int opcion;
     do {
-        altaPaciente();
-        std::cout << "¿Quieres añadir otro paciente? (si/no): ";
-        std::cin >> respuesta;
-        while (respuesta != "si" && respuesta != "no") {
-            std::cout << "Por favor, responde con 'si' o 'no': ";
-            std::cin >> respuesta;
-        }
-    } while (respuesta == "si");
+        std::cout << "\n¿Qué quieres hacer?\n";
+        std::cout << "1. Gestionar Pacientes\n";
+        std::cout << "2. Gestionar Médicos\n";
+        std::cout << "3. Salir\n";
+        std::cout << "Elige una opción: ";
+        std::cin >> opcion;
 
-    std::cout << "Has decidido no agregar más pacientes.\n";
-    MostarPacientes();
-    BuscarPacientesDNI();
-    BuscarPacientesNombre();
-    BuscarPacientesFechaIngreso();
-    do {
-        altaMedico();
-        std::cout << "¿Quieres añadir otro medico? (si/no): ";
-        std::cin >> respuesta;
-        while (respuesta != "si" && respuesta != "no") {
-            std::cout << "Por favor, responde con 'si' o 'no': ";
-            std::cin >> respuesta;
-        }
-    } while (respuesta == "si");
+        switch (opcion) {
+        case 1: {
+            int opcionPaciente;
+            do {
+                std::cout << "\n--- Gestión de Pacientes ---\n";
+                std::cout << "1. Dar de alta un paciente\n";
+                std::cout << "2. Mostrar pacientes\n";
+                std::cout << "3. Buscar paciente por DNI\n";
+                std::cout << "4. Volver al menú principal\n";
+                std::cout << "Elige una opción: ";
+                std::cin >> opcionPaciente;
 
-    std::cout << "Has decidido no agregar más medicos.\n";
-    MostrarMedicos();
+                switch (opcionPaciente) {
+                case 1:
+                    altaPaciente();
+                    break;
+                case 2:
+                    mostrarPacientes();
+                    break;
+                case 3:
+                    int opcionBusqueda;
+                    std::cout << "\n¿Qué tipo de búsqueda deseas realizar?\n";
+                    std::cout << "1. Buscar por DNI\n";
+                    std::cout << "2. Buscar por nombre\n";
+                    std::cout << "3. Buscar por fecha de ingreso\n";
+                    std::cout << "Elige una opción: ";
+                    std::cin >> opcionBusqueda;
+
+                    switch (opcionBusqueda) {
+                    case 1:
+                        buscarPacienteDNI();
+                        break;
+                    case 2:
+                        buscarPacienteNombre();
+                        break;
+                    case 3:
+                        buscarPacienteFechaIngreso();
+                        break;
+                    default:
+                        std::cout << "Opción no válida.\n";
+                    }
+                    break;
+                case 4:
+                    std::cout << "Volviendo al menú principal...\n";
+                    break;
+                default:
+                    std::cout << "Opción no válida.\n";
+                }
+            } while (opcionPaciente != 4);
+            break;
+        }
+        case 2: {
+            int opcionMedico;
+            do {
+                std::cout << "\n--- Gestión de Médicos ---\n";
+                std::cout << "1. Dar de alta un médico\n";
+                std::cout << "2. Mostrar médicos\n";
+                std::cout << "3. Volver al menú principal\n";
+                std::cout << "Elige una opción: ";
+                std::cin >> opcionMedico;
+
+                switch (opcionMedico) {
+                case 1:
+                    altaMedico();
+                    break;
+                case 2:
+                    mostrarMedicos();
+                    break;
+                case 3:
+                    std::cout << "Volviendo al menú principal...\n";
+                    break;
+                default:
+                    std::cout << "Opción no válida.\n";
+                }
+            } while (opcionMedico != 3);
+            break;
+        }
+        case 3:
+            std::cout << "Saliendo del programa...\n";
+            break;
+        default:
+            std::cout << "Opción no válida.\n";
+        }
+    } while (opcion != 3);
+
     return 0;
-};
+}
+

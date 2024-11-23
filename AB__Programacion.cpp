@@ -1,5 +1,5 @@
 ﻿// AB__Programacion.cpp: define el punto de entrada de la aplicación.
-//
+/*
 
 #include "AB__Programacion.h"
 #include <iostream>
@@ -27,6 +27,7 @@ public:
 std::vector<Paciente> pacientes;
 
 void altaPaciente() {
+    //declaracion de variable en la funcion
     std::string nombre, apellidos, DNI, sexo, FechaNacimiento, FechaIngreso, FechaBaja;
     int edad;
 
@@ -47,6 +48,7 @@ void altaPaciente() {
     std::cout << "Fecha de Baja: ";
     std::cin >> FechaBaja;
 
+    // Crear un constructor de la clase Paciente
     Paciente nuevoPaciente(nombre, apellidos, DNI, sexo, edad, FechaNacimiento, FechaIngreso, FechaBaja);
     pacientes.push_back(nuevoPaciente);
 
@@ -328,3 +330,4 @@ int main() {
     return 0;
 }
 
+*/

@@ -32,6 +32,22 @@ void altaPaciente() {
     std::cout << "El paciente " << nombre << " " << apellidos << " con DNI: " << DNI
         << " se ha dado de alta correctamente.\n";
 }
+void BajaPaciente(size_t indice) {
+    std::string respuesta;
+    std::cout << "¿Quieres dar de baja (eliminar) al paciente? (si/no): ";
+    std::cin >> respuesta;
+
+    if (respuesta == "si") {
+        std::cout << "El paciente " << pacientes[indice].nombre << " " << pacientes[indice].apellidos
+            << " con DNI " << pacientes[indice].DNI << " ha sido dado de baja.\n";
+        pacientes.erase(pacientes.begin() + indice); // Eliminar paciente del vector
+    }
+    else {
+        std::cout << "No se realizaron cambios.\n";
+    }
+}
+
+
 
 void mostrarPacientes() {
     if (pacientes.empty()) {
@@ -55,6 +71,8 @@ void modificarPaciente(Paciente& paciente) {
     std::cin >> paciente.nombre;
     std::cout << "Apellidos: ";
     std::cin >> paciente.apellidos;
+    std::cout << "DNI: ";
+    std::cin >> paciente.DNI;
     std::cout << "Sexo: ";
     std::cin >> paciente.sexo;
     std::cout << "Edad: ";
@@ -85,16 +103,31 @@ void buscarPacienteDNI() {
             std::cout << "Fecha de Ingreso: " << pacientes[i].FechaIngreso << "\n";
             std::cout << "Fecha de Baja: " << pacientes[i].fechaBaja << "\n";
 
-            std::string respuesta;
-            std::cout << "¿Quieres modificar los datos de este paciente? (si/no): ";
-            std::cin >> respuesta;
+            int opcion;
+            std::cout << "¿Qué acción desea realizar?\n";
+            std::cout << "1. Modificar datos del paciente\n";
+            std::cout << "2. Dar de baja al paciente\n";
+            std::cout << "3. Cancelar\n";
+            std::cout << "Elija una opción: ";
+            std::cin >> opcion;
 
-            if (respuesta == "si") {
+            switch (opcion) {
+            case 1:
                 modificarPaciente(pacientes[i]);
+                break;
+            case 2:
+                BajaPaciente(i);
+                break;
+            case 3:
+                std::cout << "Operación cancelada.\n";
+                break;
+            default:
+                std::cout << "Opción inválida.\n";
             }
-            return;
+            return; // Salir tras manejar el paciente
         }
     }
+
     std::cout << "Paciente con DNI " << BuscarDNI << " no encontrado.\n";
 }
 
@@ -114,16 +147,31 @@ void buscarPacienteNombre() {
             std::cout << "Fecha de Ingreso: " << pacientes[i].FechaIngreso << "\n";
             std::cout << "Fecha de Baja: " << pacientes[i].fechaBaja << "\n";
 
-            std::string respuesta;
-            std::cout << "¿Quieres modificar los datos de este paciente? (si/no): ";
-            std::cin >> respuesta;
+            int opcion;
+            std::cout << "¿Qué acción desea realizar?\n";
+            std::cout << "1. Modificar datos del paciente\n";
+            std::cout << "2. Dar de baja al paciente\n";
+            std::cout << "3. Cancelar\n";
+            std::cout << "Elija una opción: ";
+            std::cin >> opcion;
 
-            if (respuesta == "si") {
+            switch (opcion) {
+            case 1:
                 modificarPaciente(pacientes[i]);
+                break;
+            case 2:
+                BajaPaciente(i);
+                break;
+            case 3:
+                std::cout << "Operación cancelada.\n";
+                break;
+            default:
+                std::cout << "Opción inválida.\n";
             }
-            return;
+            return; // Salir tras manejar el paciente
         }
     }
+
     std::cout << "Paciente con Nombre " << BuscarNombre << " no encontrado.\n";
 }
 
@@ -143,15 +191,31 @@ void buscarPacienteFechaIngreso() {
             std::cout << "Fecha de Ingreso: " << pacientes[i].FechaIngreso << "\n";
             std::cout << "Fecha de Baja: " << pacientes[i].fechaBaja << "\n";
 
-            std::string respuesta;
-            std::cout << "¿Quieres modificar los datos de este paciente? (si/no): ";
-            std::cin >> respuesta;
+            int opcion;
+            std::cout << "¿Qué acción desea realizar?\n";
+            std::cout << "1. Modificar datos del paciente\n";
+            std::cout << "2. Dar de baja al paciente\n";
+            std::cout << "3. Cancelar\n";
+            std::cout << "Elija una opción: ";
+            std::cin >> opcion;
 
-            if (respuesta == "si") {
+            switch (opcion) {
+            case 1:
                 modificarPaciente(pacientes[i]);
+                break;
+            case 2:
+                BajaPaciente(i);
+                break;
+            case 3:
+                std::cout << "Operación cancelada.\n";
+                break;
+            default:
+                std::cout << "Opción inválida.\n";
             }
-            return;
+            return; // Salir tras manejar el paciente
         }
     }
-    std::cout << "Paciente con FechaIngreso " << BuscarFechaIngreso << " no encontrado.\n";
+
+    std::cout << "Paciente con Fecha de Ingreso de " << BuscarFechaIngreso << " no encontrado.\n";
 }
+

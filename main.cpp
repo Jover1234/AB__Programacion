@@ -19,7 +19,7 @@ int main() {
                 std::cout << "\n--- Gestión de Pacientes ---\n";
                 std::cout << "1. Dar de alta un paciente\n";
                 std::cout << "2. Mostrar pacientes\n";
-                std::cout << "3. Buscar paciente por DNI\n";
+                std::cout << "3. Buscar paciente \n";
                 std::cout << "4. Volver al menú principal\n";
                 std::cout << "Elige una opción: ";
                 std::cin >> opcionPaciente;
@@ -69,7 +69,8 @@ int main() {
                 std::cout << "\n--- Gestión de Médicos ---\n";
                 std::cout << "1. Dar de alta un médico\n";
                 std::cout << "2. Mostrar médicos\n";
-                std::cout << "3. Volver al menú principal\n";
+                std::cout << "3. Buscar medico\n";
+                std::cout << "4. Volver al menú principal\n";
                 std::cout << "Elige una opción: ";
                 std::cin >> opcionMedico;
 
@@ -81,6 +82,8 @@ int main() {
                     mostrarMedicos();
                     break;
                 case 3:
+                    buscarMedicoDNI();
+                case 4:
                     std::cout << "Volviendo al menú principal...\n";
                     break;
                 default:

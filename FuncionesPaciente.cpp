@@ -1,9 +1,38 @@
 #include "paciente.h"
 #include <iostream>
+#include <fstream>
+#include <vector>
+#include <string>
 
 std::vector<Paciente> pacientes;
 
+void cargarPacientes() {
+    std::ifstream file("pacientes.txt");
+    if (!file) {
+        std::cout << "No se pudo abrir el archivo de pacientes.\n";
+        return;
+    }
+    std::string nombre, apellidos, DNI, sexo, FechaNacimiento, FechaIngreso, FechaBaja;
+    int edad;
+    while (file >> nombre >> apellidos >> DNI >> sexo >> edad >> FechaNacimiento >> FechaIngreso >> FechaBaja) {
+        pacientes.push_back(Paciente(nombre, apellidos, DNI, sexo, edad, FechaNacimiento, FechaIngreso, FechaBaja));
+    }
+    file.close();
+}
 
+void guardarPacientes() {
+    std::ofstream file("pacientes.txt", std::ios::trunc);
+    if (!file) {
+        std::cout << "Error al abrir el archivo para guardar pacientes.\n";
+        return;
+    }
+    for (const Paciente& paciente : pacientes) {
+        file << paciente.nombre << " " << paciente.apellidos << " " << paciente.DNI << " "
+            << paciente.sexo << " " << paciente.edad << " " << paciente.FechaNacimiento << " "
+            << paciente.FechaIngreso << " " << paciente.fechaBaja << "\n";
+    }
+    file.close();
+}
 
 void altaPaciente() {
     std::string nombre, apellidos, DNI, sexo, FechaNacimiento, FechaIngreso, FechaBaja;
@@ -28,6 +57,7 @@ void altaPaciente() {
 
     Paciente nuevoPaciente(nombre, apellidos, DNI, sexo, edad, FechaNacimiento, FechaIngreso, FechaBaja);
     pacientes.push_back(nuevoPaciente);
+    guardarPacientes();
 
     std::cout << "El paciente " << nombre << " " << apellidos << " con DNI: " << DNI
         << " se ha dado de alta correctamente.\n";
@@ -41,6 +71,7 @@ void BajaPaciente(size_t indice) {
         std::cout << "El paciente " << pacientes[indice].nombre << " " << pacientes[indice].apellidos
             << " con DNI " << pacientes[indice].DNI << " ha sido dado de baja.\n";
         pacientes.erase(pacientes.begin() + indice); // Eliminar paciente del vector
+        guardarPacientes(); // Actualizar archivo
     }
     else {
         std::cout << "No se realizaron cambios.\n";
@@ -85,6 +116,7 @@ void modificarPaciente(Paciente& paciente) {
     std::cin >> paciente.fechaBaja;
 
     std::cout << "Datos modificados con éxito.\n";
+    guardarPacientes(); // Guardar cambios al archivo
 }
 
 void buscarPacienteDNI() {

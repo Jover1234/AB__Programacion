@@ -16,19 +16,19 @@ public:
     std::string fechaBaja;
 
     Paciente(std::string nombre, std::string apellidos, std::string DNI, std::string sexo, int edad,
-        std::string FechaNacimiento, std::string FechaIngreso, std::string FechaBaja)
+        std::string FechaNacimiento, std::string FechaIngreso, std::string fechaBaja)
         : nombre(nombre), apellidos(apellidos), DNI(DNI), sexo(sexo), edad(edad),
-        FechaNacimiento(FechaNacimiento), FechaIngreso(FechaIngreso), fechaBaja(FechaBaja) {
+        FechaNacimiento(FechaNacimiento), FechaIngreso(FechaIngreso), fechaBaja(fechaBaja) {
     }
 };
 
-void cargarPacientes();
 void altaPaciente();
 void mostrarPacientes();
-void BajaPaciente(size_t indice);
-void guardarPacientes();
-void modificarPaciente(Paciente& paciente);
 void buscarPacienteDNI();
 void buscarPacienteNombre();
 void buscarPacienteFechaIngreso();
+void cargarPacientes();
+void guardarPacientes();
+void modificarPaciente();
+
 #endif // PACIENTE_H

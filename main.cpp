@@ -3,8 +3,6 @@
 #include "medico.h"
 
 int main() {
-    cargarPacientes(); // Cargar los pacientes desde el archivo
-
     int opcion;
     do {
         std::cout << "\n¿Qué quieres hacer?\n";
@@ -85,14 +83,13 @@ int main() {
                     break;
                 case 3:
                     buscarMedicoDNI();
-                    break;
                 case 4:
                     std::cout << "Volviendo al menú principal...\n";
                     break;
                 default:
                     std::cout << "Opción no válida.\n";
                 }
-            } while (opcionMedico != 4);
+            } while (opcionMedico != 3);
             break;
         }
         case 3:

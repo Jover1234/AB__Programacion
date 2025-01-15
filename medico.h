@@ -21,9 +21,8 @@ public:
 void altaMedico();
 void mostrarMedicos();
 void buscarMedicoDNI();
-void bajaMedico(size_t indice);
-void modificarMedico(Medico& medico);
+void bajaMedico();
+void modificarMedico();
 
 #endif // MEDICO_H
-
 

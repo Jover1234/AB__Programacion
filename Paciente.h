@@ -22,13 +22,11 @@ public:
     }
 };
 
-void cargarPacientes();
 void altaPaciente();
 void mostrarPacientes();
-void BajaPaciente(size_t indice);
-void guardarPacientes();
-void modificarPaciente(Paciente& paciente);
 void buscarPacienteDNI();
 void buscarPacienteNombre();
 void buscarPacienteFechaIngreso();
+void bajaPaciente();
+
 #endif // PACIENTE_H

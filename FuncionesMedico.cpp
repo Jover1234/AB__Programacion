@@ -3,6 +3,7 @@
 
 std::vector<Medico> medicos;
 
+
 void altaMedico() {
     std::string nombre, apellidos, DNI, especialidad, disponibilidad;
 
@@ -38,7 +39,7 @@ void mostrarMedicos() {
     }
 }
 
-void modificarMedico(Medico& medico) {
+void  modificarMedico(Medico& medico) {
     std::cout << "Nombre: ";
     std::cin >> medico.nombre;
     std::cout << "Apellidos: ";

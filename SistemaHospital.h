@@ -14,6 +14,7 @@ class SistemaHospital {
 private:
     std::vector<Paciente> pacientes;
     std::vector<Medico> medicos;
+    std::vector<Cita> citas;
 
 public:
     void altaPaciente();
@@ -43,8 +44,6 @@ public:
     void guardarDatos(const std::string& archivo);
     void cargarDatos(const std::string& archivo);
     void hacerBackup(const std::string& archivo);
-
-
-
 };
-#endif // SISTEMAHOSPITAL_h
+
+#endif // SISTEMAHOSPITAL_H

@@ -15,4 +15,3 @@ public:
 };
 
 #endif // MEDICO_H
-

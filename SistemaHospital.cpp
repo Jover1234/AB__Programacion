@@ -31,9 +31,6 @@ void SistemaHospital::bajaPaciente() {
     }
 }
 
-
-
-
 void mostrarPacientes() {
     std::ifstream archivo("pacientes.txt");
     if (!archivo.is_open()) {
@@ -101,142 +98,23 @@ void SistemaHospital::modificarPaciente() {
 }
 
 
-void buscarPacienteDNI() {
-    std::string BuscarDNI;
-    std::cout << "DNI: ";
-    std::cin >> BuscarDNI;
 
-    for (size_t i = 0; i < pacientes.size(); i++) {
-        if (pacientes[i].DNI == BuscarDNI) {
-            std::cout << "Paciente " << i + 1 << ":\n";
-            std::cout << "Nombre: " << pacientes[i].nombre << " " << pacientes[i].apellidos << "\n";
-            std::cout << "DNI: " << pacientes[i].DNI << "\n";
-            std::cout << "Sexo: " << pacientes[i].sexo << "\n";
-            std::cout << "Edad: " << pacientes[i].edad << "\n";
-            std::cout << "Fecha de Nacimiento: " << pacientes[i].FechaNacimiento << "\n";
-            std::cout << "Fecha de Ingreso: " << pacientes[i].FechaIngreso << "\n";
-            std::cout << "Fecha de Baja: " << pacientes[i].fechaBaja << "\n";
+void SistemaHospital::buscarPaciente() {
+    std::string criterio;
+    std::cout << "Buscar por (nombre/dni/fecha): ";
+    std::cin >> criterio;
+    std::string valor;
+    std::cout << "Valor a buscar: ";
+    std::cin >> valor;
 
-            int opcion;
-            std::cout << "¿Qué acción desea realizar?\n";
-            std::cout << "1. Modificar datos del paciente\n";
-            std::cout << "2. Dar de baja al paciente\n";
-            std::cout << "3. Cancelar\n";
-            std::cout << "Elija una opción: ";
-            std::cin >> opcion;
-
-            switch (opcion) {
-            case 1:
-                modificarPaciente(pacientes[i]);
-                break;
-            case 2:
-                BajaPaciente(i);
-                break;
-            case 3:
-                std::cout << "Operación cancelada.\n";
-                break;
-            default:
-                std::cout << "Opción inválida.\n";
-            }
-            return; // Salir tras manejar el paciente
+    for (const auto& p : pacientes) {
+        if ((criterio == "nombre" && p.nombre == valor) ||
+            (criterio == "dni" && p.dni == valor) ||
+            (criterio == "fecha" && p.fechaIngreso.find(valor) != std::string::npos)) {
+            std::cout << "Paciente encontrado: " << p.nombre << " " << p.apellidos << " (DNI: " << p.dni << ")\n";
         }
     }
-
-    std::cout << "Paciente con DNI " << BuscarDNI << " no encontrado.\n";
 }
-
-void buscarPacienteNombre() {
-    std::string BuscarNombre;
-    std::cout << "Nombre: ";
-    std::cin >> BuscarNombre;
-
-    for (size_t i = 0; i < pacientes.size(); i++) {
-        if (pacientes[i].nombre == BuscarNombre) {
-            std::cout << "Paciente " << i + 1 << ":\n";
-            std::cout << "Nombre: " << pacientes[i].nombre << " " << pacientes[i].apellidos << "\n";
-            std::cout << "DNI: " << pacientes[i].DNI << "\n";
-            std::cout << "Sexo: " << pacientes[i].sexo << "\n";
-            std::cout << "Edad: " << pacientes[i].edad << "\n";
-            std::cout << "Fecha de Nacimiento: " << pacientes[i].FechaNacimiento << "\n";
-            std::cout << "Fecha de Ingreso: " << pacientes[i].FechaIngreso << "\n";
-            std::cout << "Fecha de Baja: " << pacientes[i].fechaBaja << "\n";
-
-            int opcion;
-            std::cout << "¿Qué acción desea realizar?\n";
-            std::cout << "1. Modificar datos del paciente\n";
-            std::cout << "2. Dar de baja al paciente\n";
-            std::cout << "3. Cancelar\n";
-            std::cout << "Elija una opción: ";
-            std::cin >> opcion;
-
-            switch (opcion) {
-            case 1:
-                modificarPaciente(pacientes[i]);
-                break;
-            case 2:
-                BajaPaciente(i);
-                break;
-            case 3:
-                std::cout << "Operación cancelada.\n";
-                break;
-            default:
-                std::cout << "Opción inválida.\n";
-            }
-            return; // Salir tras manejar el paciente
-        }
-    }
-
-    std::cout << "Paciente con Nombre " << BuscarNombre << " no encontrado.\n";
-}
-
-void buscarPacienteFechaIngreso() {
-    std::string BuscarFechaIngreso;
-    std::cout << "FechaIngreso: ";
-    std::cin >> BuscarFechaIngreso;
-
-    for (size_t i = 0; i < pacientes.size(); i++) {
-        if (pacientes[i].FechaIngreso == BuscarFechaIngreso) {
-            std::cout << "Paciente " << i + 1 << ":\n";
-            std::cout << "Nombre: " << pacientes[i].nombre << " " << pacientes[i].apellidos << "\n";
-            std::cout << "DNI: " << pacientes[i].DNI << "\n";
-            std::cout << "Sexo: " << pacientes[i].sexo << "\n";
-            std::cout << "Edad: " << pacientes[i].edad << "\n";
-            std::cout << "Fecha de Nacimiento: " << pacientes[i].FechaNacimiento << "\n";
-            std::cout << "Fecha de Ingreso: " << pacientes[i].FechaIngreso << "\n";
-            std::cout << "Fecha de Baja: " << pacientes[i].fechaBaja << "\n";
-
-            int opcion;
-            std::cout << "¿Qué acción desea realizar?\n";
-            std::cout << "1. Modificar datos del paciente\n";
-            std::cout << "2. Dar de baja al paciente\n";
-            std::cout << "3. Cancelar\n";
-            std::cout << "Elija una opción: ";
-            std::cin >> opcion;
-
-            switch (opcion) {
-            case 1:
-                modificarPaciente(pacientes[i]);
-                break;
-            case 2:
-                BajaPaciente(i);
-                break;
-            case 3:
-                std::cout << "Operación cancelada.\n";
-                break;
-            default:
-                std::cout << "Opción inválida.\n";
-            }
-            return; // Salir tras manejar el paciente
-        }
-    }
-
-    std::cout << "Paciente con Fecha de Ingreso de " << BuscarFechaIngreso << " no encontrado.\n";
-}
-
-#include "medico.h"
-#include <iostream>
-
-std::vector<Medico> medicos;
 
 
 void SistemaHospital::altaMedico() {

@@ -16,15 +16,12 @@ private:
 
 public:
     void altaPaciente();
-    void mostrarPacientes();
-    void buscarPacienteDNI();
-    void buscarPacienteNombre();
-    void buscarPacienteFechaIngreso();
     void bajaPaciente();
+    void modificarPaciente();
+    void buscarPaciente();
     void altaMedico();
-    void mostrarMedicos();
-    void buscarMedicoDNI();
     void bajaMedico();
-    void modificarMedico();
+
+
 };
 #endif // SISTEMAHOSPITAL_h

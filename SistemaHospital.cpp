@@ -279,6 +279,21 @@ void SistemaHospital::listarCitasPorUrgencia() {
     }
 }
 
+void SistemaHospital::reportePacientesAtendidos() {
+    std::string fechaInicio, fechaFin;
+    std::cout << "Fecha de inicio (DD/MM/YYYY): ";
+    std::cin >> fechaInicio;
+    std::cout << "Fecha de fin (DD/MM/YYYY): ";
+    std::cin >> fechaFin;
+    for (const auto& c : citas) {
+        if (c.fecha >= fechaInicio && c.fecha <= fechaFin) {
+            std::cout << "Paciente: " << c.dniPaciente << ", Médico: " << c.dniMedico
+                << ", Fecha: " << c.fecha << "\n";
+        }
+    }
+}
+
+
 
 void SistemaHospital::cargarDatos(const std::string& archivo) {
     std::ifstream file(archivo);

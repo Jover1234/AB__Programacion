@@ -293,6 +293,36 @@ void SistemaHospital::reportePacientesAtendidos() {
     }
 }
 
+void SistemaHospital::reporteCitasPendientesMedico() {
+    std::string dniMedico, fecha;
+    std::cout << "DNI del médico: ";
+    std::cin >> dniMedico;
+    std::cout << "Fecha actual (DD/MM/YYYY): ";
+    std::cin >> fecha;
+    for (const auto& c : citas) {
+        if (c.dniMedico == dniMedico && c.fecha >= fecha) {
+            std::cout << "Paciente: " << c.dniPaciente << ", Fecha: " << c.fecha
+                << ", Urgente: " << (c.urgente ? "Sí" : "No") << "\n";
+        }
+    }
+}
+
+void SistemaHospital::reporteCitasPendientesEspecialidad() {
+    std::string especialidad, fecha;
+    std::cout << "Especialidad: ";
+    std::cin >> especialidad;
+    std::cout << "Fecha actual (DD/MM/YYYY): ";
+    std::cin >> fecha;
+    for (const auto& c : citas) {
+        auto medico = std::find_if(medicos.begin(), medicos.end(),
+            [&c](const Medico& m) { return m.dni == c.dniMedico; });
+        if (medico != medicos.end() && medico->especialidad == especialidad && c.fecha >= fecha) {
+            std::cout << "Paciente: " << c.dniPaciente << ", Médico: " << c.dniMedico
+                << ", Fecha: " << c.fecha << ", Urgente: " << (c.urgente ? "Sí" : "No") << "\n";
+        }
+    }
+}
+
 
 
 void SistemaHospital::cargarDatos(const std::string& archivo) {

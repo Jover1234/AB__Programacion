@@ -22,11 +22,4 @@ public:
     }
 };
 
-void altaPaciente();
-void mostrarPacientes();
-void buscarPacienteDNI();
-void buscarPacienteNombre();
-void buscarPacienteFechaIngreso();
-void bajaPaciente();
-
 #endif // PACIENTE_H

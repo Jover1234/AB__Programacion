@@ -1,6 +1,7 @@
 #include <iostream>
 #include "paciente.h"
 #include "medico.h"
+#include <wchar.h>
 
 int main() {
     int opcion;

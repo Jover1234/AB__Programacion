@@ -1,8 +1,7 @@
-#include "paciente.h"
+#include "Paciente.h"
 #include <iostream>
 
 std::vector<Paciente> pacientes;
-
 
 
 void altaPaciente() {
@@ -29,9 +28,22 @@ void altaPaciente() {
     Paciente nuevoPaciente(nombre, apellidos, DNI, sexo, edad, FechaNacimiento, FechaIngreso, FechaBaja);
     pacientes.push_back(nuevoPaciente);
 
+    // Guardar en el archivo
+    std::ofstream archivo("pacientes.txt", std::ios::app); // Abrir en modo append
+    if (archivo.is_open()) {
+        archivo << nombre << "|" << apellidos << "|" << DNI << "|" << sexo << "|" << edad << "|"
+            << FechaNacimiento << "|" << FechaIngreso << "|" << FechaBaja << "\n";
+        archivo.close();
+    }
+    else {
+        std::cerr << "No se pudo abrir el archivo para escribir.\n";
+    }
+
     std::cout << "El paciente " << nombre << " " << apellidos << " con DNI: " << DNI
         << " se ha dado de alta correctamente.\n";
 }
+
+
 void BajaPaciente(size_t indice) {
     std::string respuesta;
     std::cout << "¿Quieres dar de baja (eliminar) al paciente? (si/no): ";
@@ -50,21 +62,45 @@ void BajaPaciente(size_t indice) {
 
 
 void mostrarPacientes() {
-    if (pacientes.empty()) {
-        std::cout << "No hay pacientes registrados.\n";
+    std::ifstream archivo("pacientes.txt");
+    if (!archivo.is_open()) {
+        std::cout << "No se pudo abrir el archivo o no hay pacientes registrados.\n";
         return;
     }
-    for (size_t i = 0; i < pacientes.size(); i++) {
-        std::cout << "Paciente " << i + 1 << ":\n";
-        std::cout << "Nombre: " << pacientes[i].nombre << " " << pacientes[i].apellidos << "\n";
-        std::cout << "DNI: " << pacientes[i].DNI << "\n";
-        std::cout << "Sexo: " << pacientes[i].sexo << "\n";
-        std::cout << "Edad: " << pacientes[i].edad << "\n";
-        std::cout << "Fecha de Nacimiento: " << pacientes[i].FechaNacimiento << "\n";
-        std::cout << "Fecha de Ingreso: " << pacientes[i].FechaIngreso << "\n";
-        std::cout << "Fecha de Baja: " << pacientes[i].fechaBaja << "\n";
+
+    std::string linea;
+    size_t contador = 0;
+
+    while (std::getline(archivo, linea)) {
+        contador++;
+        std::istringstream stream(linea);
+        std::string nombre, apellidos, DNI, sexo, FechaNacimiento, FechaIngreso, FechaBaja;
+        int edad;
+
+        std::getline(stream, nombre, '|');
+        std::getline(stream, apellidos, '|');
+        std::getline(stream, DNI, '|');
+        std::getline(stream, sexo, '|');
+        stream >> edad;
+        stream.ignore(); // Ignorar el delimitador '|'
+        std::getline(stream, FechaNacimiento, '|');
+        std::getline(stream, FechaIngreso, '|');
+        std::getline(stream, FechaBaja, '|');
+
+        std::cout << "Paciente " << contador << ":\n";
+        std::cout << "Nombre: " << nombre << " " << apellidos << "\n";
+        std::cout << "DNI: " << DNI << "\n";
+        std::cout << "Sexo: " << sexo << "\n";
+        std::cout << "Edad: " << edad << "\n";
+        std::cout << "Fecha de Nacimiento: " << FechaNacimiento << "\n";
+        std::cout << "Fecha de Ingreso: " << FechaIngreso << "\n";
+        std::cout << "Fecha de Baja: " << FechaBaja << "\n";
+        std::cout << "-------------------------\n";
     }
-};
+
+    archivo.close();
+}
+
 
 void modificarPaciente(Paciente& paciente) {
     std::cout << "Nombre: ";
@@ -85,6 +121,8 @@ void modificarPaciente(Paciente& paciente) {
     std::cin >> paciente.fechaBaja;
 
     std::cout << "Datos modificados con éxito.\n";
+
+
 }
 
 void buscarPacienteDNI() {

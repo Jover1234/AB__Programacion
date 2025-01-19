@@ -29,6 +29,9 @@ public:
     void listarMedicosPorDisponibilidad();
 
     void asignarCita();
+    void cancelarCita();
+    void modificarCita();
+
 
 
 

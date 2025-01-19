@@ -1,7 +1,5 @@
 #ifndef PACIENTE_H
 #define PACIENTE_H
-#ifndef PACIENTE_H
-#define PACIENTE_H
 
 #include <string>
 #include <vector>

@@ -192,6 +192,44 @@ void SistemaHospital::asignarCita() {
     std::cout << "Cita asignada.\n";
 }
 
+void SistemaHospital::cancelarCita() {
+    std::string dniPaciente, fecha;
+    std::cout << "DNI del paciente: ";
+    std::cin >> dniPaciente;
+    std::cout << "Fecha de la cita (DD/MM/YYYY): ";
+    std::cin >> fecha;
+    auto it = std::find_if(citas.begin(), citas.end(),
+        [dniPaciente, fecha](const Cita& c) { return c.dniPaciente == dniPaciente && c.fecha == fecha; });
+    if (it != citas.end()) {
+        citas.erase(it);
+        std::cout << "Cita cancelada.\n";
+    }
+    else {
+        std::cout << "Cita no encontrada.\n";
+    }
+}
+
+void SistemaHospital::modificarCita() {
+    std::string dniPaciente, fecha;
+    std::cout << "DNI del paciente: ";
+    std::cin >> dniPaciente;
+    std::cout << "Fecha de la cita (DD/MM/YYYY): ";
+    std::cin >> fecha;
+    auto it = std::find_if(citas.begin(), citas.end(),
+        [dniPaciente, fecha](const Cita& c) { return c.dniPaciente == dniPaciente && c.fecha == fecha; });
+    if (it != citas.end()) {
+        std::cout << "Nueva fecha (DD/MM/YYYY): ";
+        std::cin >> it->fecha;
+        std::cout << "Urgente (1 para sí, 0 para no): ";
+        std::cin >> it->urgente;
+        std::cout << "Cita modificada.\n";
+    }
+    else {
+        std::cout << "Cita no encontrada.\n";
+    }
+}
+
+
 
 void SistemaHospital::guardarDatos(const std::string& archivo) {
     std::ofstream file(archivo);
@@ -269,11 +307,12 @@ void SistemaHospital::cargarDatos(const std::string& archivo) {
     }
 }
 
-    void SistemaHospital::hacerBackup(const std::string & archivo) {
-        std::string backupFile = archivo + ".bak";
-        std::ifstream src(archivo, std::ios::binary);
-        std::ofstream dst(backupFile, std::ios::binary);
-        dst << src.rdbuf();
-        std::cout << "Backup realizado correctamente.\n";
-    };
+void SistemaHospital::hacerBackup(const std::string& archivo) {
+    std::string backupFile = archivo + ".bak";
+    std::ifstream src(archivo, std::ios::binary);
+    std::ofstream dst(backupFile, std::ios::binary);
+    dst << src.rdbuf();
+    std::cout << "Backup realizado correctamente.\n";
+};
+
 

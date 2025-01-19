@@ -203,9 +203,20 @@ void SistemaHospital::guardarDatos(const std::string& archivo) {
             }
             file << "\n";
         }
+        for (const auto& m : medicos) {
+            file << "M," << m.nombre << "," << m.apellidos << "," << m.dni << "," << m.especialidad << "," << m.disponible << "\n";
+        }
+        for (const auto& c : citas) {
+            file << "C," << c.dniPaciente << "," << c.dniMedico << "," << c.fecha << "," << c.urgente << "\n";
+        }
+        file.close();
+        std::cout << "Datos guardados correctamente.\n";
+    }
+    else {
         std::cout << "No se pudo abrir el archivo para guardar.\n";
     }
 }
+
 void SistemaHospital::cargarDatos(const std::string& archivo) {
     std::ifstream file(archivo);
     if (file.is_open()) {
@@ -228,13 +239,35 @@ void SistemaHospital::cargarDatos(const std::string& archivo) {
                 }
                 pacientes.push_back(p);
             }
-            file.close();
-            std::cout << "Datos cargados correctamente.\n";
+            else if (tipo == "M") {
+                std::string nombre, apellidos, dni, especialidad;
+                bool disponible;
+                std::getline(iss, nombre, ',');
+                std::getline(iss, apellidos, ',');
+                std::getline(iss, dni, ',');
+                std::getline(iss, especialidad, ',');
+                iss >> disponible;
+                Medico m(nombre, apellidos, dni, especialidad);
+                m.disponible = disponible;
+                medicos.push_back(m);
+            }
+            else if (tipo == "C") {
+                std::string dniPaciente, dniMedico, fecha;
+                bool urgente;
+                std::getline(iss, dniPaciente, ',');
+                std::getline(iss, dniMedico, ',');
+                std::getline(iss, fecha, ',');
+                iss >> urgente;
+                citas.push_back(Cita(dniPaciente, dniMedico, fecha, urgente));
+            }
         }
+        file.close();
+        std::cout << "Datos cargados correctamente.\n";
+    }
     else {
         std::cout << "No se pudo abrir el archivo para cargar.\n";
     }
-    };
+}
 
     void SistemaHospital::hacerBackup(const std::string & archivo) {
         std::string backupFile = archivo + ".bak";

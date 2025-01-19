@@ -116,6 +116,26 @@ void SistemaHospital::buscarPaciente() {
     }
 }
 
+void SistemaHospital::modificarHistorialClinico() {
+    std::string dni;
+    std::cout << "DNI del paciente: ";
+    std::cin >> dni;
+    auto it = std::find_if(pacientes.begin(), pacientes.end(),
+        [dni](const Paciente& p) { return p.dni == dni; });
+    if (it != pacientes.end()) {
+        std::string entrada;
+        std::cout << "Nueva entrada para el historial clínico: ";
+        std::cin.ignore();
+        std::getline(std::cin, entrada);
+        it->historialClinico.push_back(entrada);
+        std::cout << "Historial clínico actualizado.\n";
+    }
+    else {
+        std::cout << "Paciente no encontrado.\n";
+    }
+}
+
+
 
 void SistemaHospital::altaMedico() {
     std::string nombre, apellidos, dni, especialidad;

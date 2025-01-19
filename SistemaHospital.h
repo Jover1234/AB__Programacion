@@ -25,6 +25,9 @@ public:
     void bajaMedico();
     void modificarEspecialidad();
     void cambiarDisponibilidad();
+    void listarMedicosPorEspecialidad();
+    void listarMedicosPorDisponibilidad();
+
 
     void guardarDatos(const std::string& archivo);
     void cargarDatos(const std::string& archivo);

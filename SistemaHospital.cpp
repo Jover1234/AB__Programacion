@@ -155,6 +155,28 @@ void SistemaHospital::cambiarDisponibilidad() {
     }
 }
 
+void SistemaHospital::listarMedicosPorEspecialidad() {
+    std::string especialidad;
+    std::cout << "Especialidad: ";
+    std::cin >> especialidad;
+    for (const auto& m : medicos) {
+        if (m.especialidad == especialidad) {
+            std::cout << m.nombre << " " << m.apellidos << " (DNI: " << m.dni << ")\n";
+        }
+    }
+}
+
+void SistemaHospital::listarMedicosPorDisponibilidad() {
+    bool disponible;
+    std::cout << "Disponibilidad (1 para disponible, 0 para no disponible): ";
+    std::cin >> disponible;
+    for (const auto& m : medicos) {
+        if (m.disponible == disponible) {
+            std::cout << m.nombre << " " << m.apellidos << " (DNI: " << m.dni << ")\n";
+        }
+    }
+}
+
 
 void SistemaHospital::guardarDatos(const std::string& archivo) {
     std::ofstream file(archivo);

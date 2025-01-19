@@ -75,6 +75,8 @@ int main() {
                 std::cout << "1. Asignar cita\n";
                 std::cout << "2. Cancelar cita\n";
                 std::cout << "3. Modificar cita\n";
+                std::cout << "4. Listar citas por fecha\n";
+                std::cout << "5. Listar citas por urgencia\n";
                 std::cout << "0. Volver al menú principal\n";
                 std::cout << "Seleccione una opción: ";
                 std::cin >> opcionCitas;
@@ -88,6 +90,7 @@ int main() {
                 }
             } while (opcionCitas != 0);
             break;
+
         case 4:
             // Menú de Manejo de Archivos
             int opcionArchivos;

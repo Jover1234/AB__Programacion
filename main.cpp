@@ -1,105 +1,116 @@
-#include <iostream>
-#include "paciente.h"
-#include "medico.h"
-#include <wchar.h>
+#include "SistemaHospital.h"
+#include <locale>
 
 int main() {
+    setlocale(LC_ALL, ""); // Configura la localización según el entorno del sistema
+    SistemaHospital sistema;
+    sistema.cargarDatos("hospital_data.txt");
+
     int opcion;
     do {
-        std::cout << "\n¿Qué quieres hacer?\n";
-        std::cout << "1. Gestionar Pacientes\n";
-        std::cout << "2. Gestionar Médicos\n";
-        std::cout << "3. Salir\n";
-        std::cout << "Elige una opción: ";
+        std::cout << "\n--- Sistema de Gestión Hospitalaria ---\n";
+        std::cout << "1. Gestión de Pacientes\n";
+        std::cout << "2. Gestión de Médicos\n";
+        std::cout << "3. Gestión de Citas\n";
+        std::cout << "4. Manejo de Archivos\n";
+        std::cout << "0. Salir\n";
+        std::cout << "Seleccione una opción: ";
         std::cin >> opcion;
-
         switch (opcion) {
-        case 1: {
-            int opcionPaciente;
+        case 1:
+            // Menú de Gestión de Pacientes
+            int opcionPacientes;
             do {
                 std::cout << "\n--- Gestión de Pacientes ---\n";
-                std::cout << "1. Dar de alta un paciente\n";
-                std::cout << "2. Mostrar pacientes\n";
-                std::cout << "3. Buscar paciente \n";
-                std::cout << "4. Volver al menú principal\n";
-                std::cout << "Elige una opción: ";
-                std::cin >> opcionPaciente;
+                std::cout << "1. Alta de paciente\n";
+                std::cout << "2. Baja de paciente\n";
+                std::cout << "3. Modificar datos de paciente\n";
+                std::cout << "4. Buscar paciente\n";
+                std::cout << "5. Modificar historial clínico\n";
+                std::cout << "0. Volver al menú principal\n";
+                std::cout << "Seleccione una opción: ";
+                std::cin >> opcionPacientes;
 
-                switch (opcionPaciente) {
-                case 1:
-                    altaPaciente();
-                    break;
-                case 2:
-                    mostrarPacientes();
-                    break;
-                case 3:
-                    int opcionBusqueda;
-                    std::cout << "\n¿Qué tipo de búsqueda deseas realizar?\n";
-                    std::cout << "1. Buscar por DNI\n";
-                    std::cout << "2. Buscar por nombre\n";
-                    std::cout << "3. Buscar por fecha de ingreso\n";
-                    std::cout << "Elige una opción: ";
-                    std::cin >> opcionBusqueda;
-
-                    switch (opcionBusqueda) {
-                    case 1:
-                        buscarPacienteDNI();
-                        break;
-                    case 2:
-                        buscarPacienteNombre();
-                        break;
-                    case 3:
-                        buscarPacienteFechaIngreso();
-                        break;
-                    default:
-                        std::cout << "Opción no válida.\n";
-                    }
-                    break;
-                case 4:
-                    std::cout << "Volviendo al menú principal...\n";
-                    break;
-                default:
-                    std::cout << "Opción no válida.\n";
+                switch (opcionPacientes) {
+                case 1: sistema.altaPaciente(); break;
+                case 2: sistema.bajaPaciente(); break;
+                case 3: sistema.modificarPaciente(); break;
+                case 4: sistema.buscarPaciente(); break;
+                case 5: sistema.modificarHistorialClinico(); break;
                 }
-            } while (opcionPaciente != 4);
+            } while (opcionPacientes != 0);
             break;
-        }
-        case 2: {
-            int opcionMedico;
+
+        case 2:
+            // Menú de Gestión de Médicos
+            int opcionMedicos;
             do {
                 std::cout << "\n--- Gestión de Médicos ---\n";
-                std::cout << "1. Dar de alta un médico\n";
-                std::cout << "2. Mostrar médicos\n";
-                std::cout << "3. Buscar medico\n";
-                std::cout << "4. Volver al menú principal\n";
-                std::cout << "Elige una opción: ";
-                std::cin >> opcionMedico;
+                std::cout << "1. Alta de médico\n";
+                std::cout << "2. Baja de médico\n";
+                std::cout << "3. Modificar especialidad\n";
+                std::cout << "4. Cambiar disponibilidad\n";
+                std::cout << "5. Listar médicos por especialidad\n";
+                std::cout << "6. Listar médicos por disponibilidad\n";
+                std::cout << "0. Volver al menú principal\n";
+                std::cout << "Seleccione una opción: ";
+                std::cin >> opcionMedicos;
 
-                switch (opcionMedico) {
-                case 1:
-                    altaMedico();
-                    break;
-                case 2:
-                    mostrarMedicos();
-                    break;
-                case 3:
-                    buscarMedicoDNI();
-                case 4:
-                    std::cout << "Volviendo al menú principal...\n";
-                    break;
-                default:
-                    std::cout << "Opción no válida.\n";
+                switch (opcionMedicos) {
+                case 1: sistema.altaMedico(); break;
+                case 2: sistema.bajaMedico(); break;
+                case 3: sistema.modificarEspecialidad(); break;
+                case 4: sistema.cambiarDisponibilidad(); break;
+                case 5: sistema.listarMedicosPorEspecialidad(); break;
+                case 6: sistema.listarMedicosPorDisponibilidad(); break;
                 }
-            } while (opcionMedico != 3);
+            } while (opcionMedicos != 0);
             break;
-        }
-        case 3:
-            std::cout << "Saliendo del programa...\n";
-            break;
-        default:
-            std::cout << "Opción no válida.\n";
-        }
-    } while (opcion != 3);
 
+        case 3:
+            // Menú de Gestión de Citas
+            int opcionCitas;
+            do {
+                std::cout << "\n--- Gestión de Citas ---\n";
+                std::cout << "1. Asignar cita\n";
+                std::cout << "2. Cancelar cita\n";
+                std::cout << "3. Modificar cita\n";
+                std::cout << "0. Volver al menú principal\n";
+                std::cout << "Seleccione una opción: ";
+                std::cin >> opcionCitas;
+
+                switch (opcionCitas) {
+                case 1: sistema.asignarCita(); break;
+                case 2: sistema.cancelarCita(); break;
+                case 3: sistema.modificarCita(); break;
+                case 4: sistema.listarCitasPorFecha(); break;
+                case 5: sistema.listarCitasPorUrgencia(); break;
+                }
+            } while (opcionCitas != 0);
+            break;
+        case 4:
+            // Menú de Manejo de Archivos
+            int opcionArchivos;
+            do {
+                std::cout << "\n--- Manejo de Archivos ---\n";
+                std::cout << "1. Guardar datos\n";
+                std::cout << "2. Cargar datos\n";
+                std::cout << "3. Hacer backup\n";
+                std::cout << "0. Volver al menú principal\n";
+                std::cout << "Seleccione una opción: ";
+                std::cin >> opcionArchivos;
+
+                switch (opcionArchivos) {
+                case 1: sistema.guardarDatos("hospital_data.txt"); break;
+                case 2: sistema.cargarDatos("hospital_data.txt"); break;
+                case 3: sistema.hacerBackup("hospital_data.txt"); break;
+                }
+            } while (opcionArchivos != 0);
+            break;
+        }
+    } while (opcion != 0);
+
+    sistema.guardarDatos("hospital_data.txt");
     return 0;
 }
+

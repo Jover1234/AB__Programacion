@@ -75,28 +75,31 @@ void mostrarPacientes() {
 }
 
 
-void modificarPaciente(Paciente& paciente) {
-    std::cout << "Nombre: ";
-    std::cin >> paciente.nombre;
-    std::cout << "Apellidos: ";
-    std::cin >> paciente.apellidos;
-    std::cout << "DNI: ";
-    std::cin >> paciente.DNI;
-    std::cout << "Sexo: ";
-    std::cin >> paciente.sexo;
-    std::cout << "Edad: ";
-    std::cin >> paciente.edad;
-    std::cout << "Fecha de Nacimiento: ";
-    std::cin >> paciente.FechaNacimiento;
-    std::cout << "Fecha de Ingreso: ";
-    std::cin >> paciente.FechaIngreso;
-    std::cout << "Fecha de Baja: ";
-    std::cin >> paciente.fechaBaja;
+void SistemaHospital::modificarPaciente() {
+    std::string dni;
+    std::cout << "DNI del paciente a modificar: ";
+    std::cin >> dni;
+    auto it = std::find_if(pacientes.begin(), pacientes.end(),
+        [dni](const Paciente& p) { return p.dni == dni; });
+    if (it != pacientes.end()) {
+        std::cout << "Nuevo nombre (deje en blanco para no cambiar): ";
+        std::string nombre;
+        std::cin.ignore();
+        std::getline(std::cin, nombre);
+        if (!nombre.empty()) it->nombre = nombre;
 
-    std::cout << "Datos modificados con éxito.\n";
+        std::cout << "Nuevos apellidos (deje en blanco para no cambiar): ";
+        std::string apellidos;
+        std::getline(std::cin, apellidos);
+        if (!apellidos.empty()) it->apellidos = apellidos;
 
-
+        std::cout << "Paciente modificado.\n";
+    }
+    else {
+        std::cout << "Paciente no encontrado.\n";
+    }
 }
+
 
 void buscarPacienteDNI() {
     std::string BuscarDNI;

@@ -12,10 +12,12 @@ int main() {
         std::cout << "1. Gestión de Pacientes\n";
         std::cout << "2. Gestión de Médicos\n";
         std::cout << "3. Gestión de Citas\n";
-        std::cout << "4. Manejo de Archivos\n";
+        std::cout << "4. Generación de Reportes\n";
+        std::cout << "5. Manejo de Archivos\n";
         std::cout << "0. Salir\n";
         std::cout << "Seleccione una opción: ";
         std::cin >> opcion;
+
         switch (opcion) {
         case 1:
             // Menú de Gestión de Pacientes
@@ -92,6 +94,28 @@ int main() {
             break;
 
         case 4:
+            // Menú de Generación de Reportes
+            int opcionReportes;
+            do {
+                std::cout << "\n--- Generación de Reportes ---\n";
+                std::cout << "1. Reporte de pacientes atendidos\n";
+                std::cout << "2. Reporte de citas pendientes por médico\n";
+                std::cout << "3. Reporte de citas pendientes por especialidad\n";
+                std::cout << "4. Reporte de pacientes con enfermedades crónicas\n";
+                std::cout << "0. Volver al menú principal\n";
+                std::cout << "Seleccione una opción: ";
+                std::cin >> opcionReportes;
+
+                switch (opcionReportes) {
+                case 1: sistema.reportePacientesAtendidos(); break;
+                case 2: sistema.reporteCitasPendientesMedico(); break;
+                case 3: sistema.reporteCitasPendientesEspecialidad(); break;
+                case 4: sistema.reportePacientesEnfermedadesCronicas(); break;
+                }
+            } while (opcionReportes != 0);
+            break;
+
+        case 5:
             // Menú de Manejo de Archivos
             int opcionArchivos;
             do {
@@ -116,4 +140,3 @@ int main() {
     sistema.guardarDatos("hospital_data.txt");
     return 0;
 }
-

@@ -35,9 +35,10 @@ public:
     void listarCitasPorFecha();
     void listarCitasPorUrgencia();
 
-
-
-
+    void reportePacientesAtendidos();
+    void reporteCitasPendientesMedico();
+    void reporteCitasPendientesEspecialidad();
+    void reportePacientesEnfermedadesCronicas();
 
     void guardarDatos(const std::string& archivo);
     void cargarDatos(const std::string& archivo);

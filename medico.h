@@ -2,22 +2,17 @@
 #define MEDICO_H
 
 #include <string>
-#include <vector>
 
 class Medico {
 public:
     std::string nombre;
     std::string apellidos;
-    std::string DNI;
+    std::string dni;
     std::string especialidad;
-    std::string disponibilidad;
+    bool disponible;
 
-    Medico(std::string nombre, std::string apellidos, std::string DNI, std::string especialidad,
-        std::string disponibilidad)
-        : nombre(nombre), apellidos(apellidos), DNI(DNI), especialidad(especialidad), disponibilidad(disponibilidad) {
-    }
+    Medico(std::string n, std::string a, std::string d, std::string e);
 };
-
 
 #endif // MEDICO_H
 

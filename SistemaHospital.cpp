@@ -323,6 +323,21 @@ void SistemaHospital::reporteCitasPendientesEspecialidad() {
     }
 }
 
+void SistemaHospital::reportePacientesEnfermedadesCronicas() {
+    for (const auto& p : pacientes) {
+        bool cronico = false;
+        for (const auto& entrada : p.historialClinico) {
+            if (entrada.find("crónica") != std::string::npos ||
+                entrada.find("crónico") != std::string::npos) {
+                cronico = true;
+                break;
+            }
+        }
+        if (cronico) {
+            std::cout << p.nombre << " " << p.apellidos << " (DNI: " << p.dni << ")\n";
+        }
+    }
+}
 
 
 void SistemaHospital::cargarDatos(const std::string& archivo) {

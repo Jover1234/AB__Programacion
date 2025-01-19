@@ -90,12 +90,30 @@ void SistemaHospital::modificarHistorialClinico() {
 		std::cin.ignore();
 		std::getline(std::cin, entrada);
 		it->historialClinico.push_back(entrada);
+
+		// Añadir opción para registrar enfermedad crónica
+		char respuesta;
+		std::cout << "¿Tiene enfermedad crónica? (S/N): ";
+		std::cin >> respuesta;
+
+		if (respuesta == 'S' || respuesta == 's') {
+			it->tieneEnfermedadCronica = true;
+			std::cout << "Ingrese el nombre de la enfermedad crónica: ";
+			std::cin.ignore();
+			std::getline(std::cin, it->enfermedadCronica);
+		}
+		else {
+			it->tieneEnfermedadCronica = false;
+			it->enfermedadCronica = "";
+		}
+
 		std::cout << "Historial clínico actualizado.\n";
 	}
 	else {
 		std::cout << "Paciente no encontrado.\n";
 	}
 }
+
 
 void SistemaHospital::altaMedico() {
 	std::string nombre, apellidos, dni, especialidad;
@@ -300,17 +318,17 @@ void SistemaHospital::reporteCitasPendientesEspecialidad() {
 }
 
 void SistemaHospital::reportePacientesEnfermedadesCronicas() {
+	std::cout << "--- Reporte de Pacientes con Enfermedades Crónicas ---\n";
 	for (const auto& p : pacientes) {
-		bool cronico = false;
-		for (const auto& entrada : p.historialClinico) {
-			if (entrada.find("crónica") != std::string::npos ||
-				entrada.find("crónico") != std::string::npos) {
-				cronico = true;
-				break;
-			}
+		if (p.tieneEnfermedadCronica) {
+			std::cout << "Paciente: " << p.nombre << " " << p.apellidos
+				<< " (DNI: " << p.dni << ")\n"
+				<< "Enfermedad Crónica: " << p.enfermedadCronica << "\n\n";
 		}
-		if (cronico) {
-			std::cout << p.nombre << " " << p.apellidos << " (DNI: " << p.dni << ")\n";
+		else {
+			std::cout << "Paciente: " << p.nombre << " " << p.apellidos
+				<< " (DNI: " << p.dni << ")\n"
+				<< "No tiene enfermedad crónica\n\n";
 		}
 	}
 }

@@ -28,6 +28,9 @@ public:
     void listarMedicosPorEspecialidad();
     void listarMedicosPorDisponibilidad();
 
+    void asignarCita();
+
+
 
     void guardarDatos(const std::string& archivo);
     void cargarDatos(const std::string& archivo);

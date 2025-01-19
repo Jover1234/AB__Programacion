@@ -177,6 +177,21 @@ void SistemaHospital::listarMedicosPorDisponibilidad() {
     }
 }
 
+void SistemaHospital::asignarCita() {
+    std::string dniPaciente, dniMedico, fecha;
+    bool urgente;
+    std::cout << "DNI del paciente: ";
+    std::cin >> dniPaciente;
+    std::cout << "DNI del médico: ";
+    std::cin >> dniMedico;
+    std::cout << "Fecha (DD/MM/YYYY): ";
+    std::cin >> fecha;
+    std::cout << "Urgente (1 para sí, 0 para no): ";
+    std::cin >> urgente;
+    citas.push_back(Cita(dniPaciente, dniMedico, fecha, urgente));
+    std::cout << "Cita asignada.\n";
+}
+
 
 void SistemaHospital::guardarDatos(const std::string& archivo) {
     std::ofstream file(archivo);

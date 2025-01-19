@@ -255,6 +255,31 @@ void SistemaHospital::guardarDatos(const std::string& archivo) {
     }
 }
 
+void SistemaHospital::listarCitasPorFecha() {
+    std::string fecha;
+    std::cout << "Fecha (DD/MM/YYYY): ";
+    std::cin >> fecha;
+    for (const auto& c : citas) {
+        if (c.fecha >= fecha) {
+            std::cout << "Paciente: " << c.dniPaciente << ", Médico: " << c.dniMedico
+                << ", Fecha: " << c.fecha << ", Urgente: " << (c.urgente ? "Sí" : "No") << "\n";
+        }
+    }
+}
+
+void SistemaHospital::listarCitasPorUrgencia() {
+    bool urgente;
+    std::cout << "Urgente (1 para sí, 0 para no): ";
+    std::cin >> urgente;
+    for (const auto& c : citas) {
+        if (c.urgente == urgente) {
+            std::cout << "Paciente: " << c.dniPaciente << ", Médico: " << c.dniMedico
+                << ", Fecha: " << c.fecha << "\n";
+        }
+    }
+}
+
+
 void SistemaHospital::cargarDatos(const std::string& archivo) {
     std::ifstream file(archivo);
     if (file.is_open()) {

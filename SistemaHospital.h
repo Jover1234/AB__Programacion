@@ -3,6 +3,7 @@
 
 #include "Paciente.h"
 #include "Medico.h"
+#include "Cita.h"
 #include <vector>
 #include <iostream>
 #include <fstream>
@@ -31,6 +32,9 @@ public:
     void asignarCita();
     void cancelarCita();
     void modificarCita();
+    void listarCitasPorFecha();
+    void listarCitasPorUrgencia();
+
 
 
 

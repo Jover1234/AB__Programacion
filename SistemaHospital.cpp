@@ -238,3 +238,54 @@ void buscarMedicoDNI() {
     std::cout << "Médico con DNI " << BuscarDNI << " no encontrado.\n";
 }
 
+void SistemaHospital::guardarDatos(const std::string& archivo) {
+    std::ofstream file(archivo);
+    if (file.is_open()) {
+        for (const auto& p : pacientes) {
+            file << "P," << p.nombre << "," << p.apellidos << "," << p.dni << "," << p.fechaIngreso;
+            for (const auto& h : p.historialClinico) {
+                file << "," << h;
+            }
+            file << "\n";
+        }
+        std::cout << "No se pudo abrir el archivo para guardar.\n";
+    }
+}
+void SistemaHospital::cargarDatos(const std::string& archivo) {
+    std::ifstream file(archivo);
+    if (file.is_open()) {
+        std::string line;
+        while (std::getline(file, line)) {
+            std::istringstream iss(line);
+            std::string tipo;
+            std::getline(iss, tipo, ',');
+            if (tipo == "P") {
+                std::string nombre, apellidos, dni, fechaIngreso;
+                std::getline(iss, nombre, ',');
+                std::getline(iss, apellidos, ',');
+                std::getline(iss, dni, ',');
+                std::getline(iss, fechaIngreso, ',');
+                Paciente p(nombre, apellidos, dni);
+                p.fechaIngreso = fechaIngreso;
+                std::string entrada;
+                while (std::getline(iss, entrada, ',')) {
+                    p.historialClinico.push_back(entrada);
+                }
+                pacientes.push_back(p);
+            }
+            file.close();
+            std::cout << "Datos cargados correctamente.\n";
+        }
+    else {
+        std::cout << "No se pudo abrir el archivo para cargar.\n";
+    }
+    };
+
+    void SistemaHospital::hacerBackup(const std::string & archivo) {
+        std::string backupFile = archivo + ".bak";
+        std::ifstream src(archivo, std::ios::binary);
+        std::ofstream dst(backupFile, std::ios::binary);
+        dst << src.rdbuf();
+        std::cout << "Backup realizado correctamente.\n";
+    };
+

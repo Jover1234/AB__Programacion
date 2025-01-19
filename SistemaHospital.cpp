@@ -1,6 +1,7 @@
 #include "SistemaHospital.h"
 #include <algorithm>
 
+
 void SistemaHospital::altaPaciente() {
 	std::string nombre, apellidos, dni;
 	std::cout << "Nombre: ";
@@ -62,16 +63,20 @@ void SistemaHospital::buscarPaciente() {
 	std::cin >> criterio;
 	std::string valor;
 	std::cout << "Valor a buscar: ";
-	std::cin >> valor;
+	std::cin.ignore(); // Ignorar el salto de línea anterior
+	std::getline(std::cin, valor); // Usar getline para permitir espacios
 
 	for (const auto& p : pacientes) {
 		if ((criterio == "nombre" && p.nombre == valor) ||
 			(criterio == "dni" && p.dni == valor) ||
-			(criterio == "fecha" && p.fechaIngreso.find(valor) != std::string::npos)) {
+			(criterio == "fecha" && p.fechaIngreso == valor)) { // Comparación exacta
 			std::cout << "Paciente encontrado: " << p.nombre << " " << p.apellidos << " (DNI: " << p.dni << ")\n";
 		}
 	}
 }
+
+
+
 
 void SistemaHospital::modificarHistorialClinico() {
 	std::string dni;

@@ -31,47 +31,6 @@ void SistemaHospital::bajaPaciente() {
     }
 }
 
-void mostrarPacientes() {
-    std::ifstream archivo("pacientes.txt");
-    if (!archivo.is_open()) {
-        std::cout << "No se pudo abrir el archivo o no hay pacientes registrados.\n";
-        return;
-    }
-
-    std::string linea;
-    size_t contador = 0;
-
-    while (std::getline(archivo, linea)) {
-        contador++;
-        std::istringstream stream(linea);
-        std::string nombre, apellidos, DNI, sexo, FechaNacimiento, FechaIngreso, FechaBaja;
-        int edad;
-
-        std::getline(stream, nombre, '|');
-        std::getline(stream, apellidos, '|');
-        std::getline(stream, DNI, '|');
-        std::getline(stream, sexo, '|');
-        stream >> edad;
-        stream.ignore(); // Ignorar el delimitador '|'
-        std::getline(stream, FechaNacimiento, '|');
-        std::getline(stream, FechaIngreso, '|');
-        std::getline(stream, FechaBaja, '|');
-
-        std::cout << "Paciente " << contador << ":\n";
-        std::cout << "Nombre: " << nombre << " " << apellidos << "\n";
-        std::cout << "DNI: " << DNI << "\n";
-        std::cout << "Sexo: " << sexo << "\n";
-        std::cout << "Edad: " << edad << "\n";
-        std::cout << "Fecha de Nacimiento: " << FechaNacimiento << "\n";
-        std::cout << "Fecha de Ingreso: " << FechaIngreso << "\n";
-        std::cout << "Fecha de Baja: " << FechaBaja << "\n";
-        std::cout << "-------------------------\n";
-    }
-
-    archivo.close();
-}
-
-
 void SistemaHospital::modificarPaciente() {
     std::string dni;
     std::cout << "DNI del paciente a modificar: ";
@@ -165,78 +124,37 @@ void SistemaHospital::bajaMedico() {
         std::cout << "Médico no encontrado.\n";
     }
 }
-
-
-void mostrarMedicos() {
-    if (medicos.empty()) {
-        std::cout << "No hay médicos registrados.\n";
-        return;
+void SistemaHospital::modificarEspecialidad() {
+    std::string dni;
+    std::cout << "DNI del médico: ";
+    std::cin >> dni;
+    auto it = std::find_if(medicos.begin(), medicos.end(),
+        [dni](const Medico& m) { return m.dni == dni; });
+    if (it != medicos.end()) {
+        std::cout << "Nueva especialidad: ";
+        std::cin >> it->especialidad;
+        std::cout << "Especialidad actualizada.\n";
     }
-    for (size_t i = 0; i < medicos.size(); i++) {
-        std::cout << "Médico " << i + 1 << ":\n";
-        std::cout << "Nombre: " << medicos[i].nombre << " " << medicos[i].apellidos << "\n";
-        std::cout << "DNI: " << medicos[i].DNI << "\n";
-        std::cout << "Especialidad: " << medicos[i].especialidad << "\n";
-        std::cout << "Disponibilidad: " << medicos[i].disponibilidad << "\n";
+    else {
+        std::cout << "Médico no encontrado.\n";
     }
 }
 
-void  modificarMedico(Medico& medico) {
-    std::cout << "Nombre: ";
-    std::cin >> medico.nombre;
-    std::cout << "Apellidos: ";
-    std::cin >> medico.apellidos;
-    std::cout << "DNI: ";
-    std::cin >> medico.DNI;
-    std::cout << "Especialidad: ";
-    std::cin >> medico.especialidad;
-    std::cout << "Disponibilidad: ";
-    std::cin >> medico.disponibilidad;
-
-    std::cout << "Datos modificados con éxito.\n";
-}
-
-
-void buscarMedicoDNI() {
-    std::string BuscarDNI;
-    std::cout << "DNI: ";
-    std::cin >> BuscarDNI;
-
-    for (size_t i = 0; i < medicos.size(); i++) {
-        if (medicos[i].DNI == BuscarDNI) {
-            std::cout << "Médico " << i + 1 << ":\n";
-            std::cout << "Nombre: " << medicos[i].nombre << " " << medicos[i].apellidos << "\n";
-            std::cout << "DNI: " << medicos[i].DNI << "\n";
-            std::cout << "Especialidad: " << medicos[i].especialidad << "\n";
-            std::cout << "Disponibilidad: " << medicos[i].disponibilidad << "\n";
-
-            int opcion;
-            std::cout << "¿Qué acción desea realizar?\n";
-            std::cout << "1. Modificar datos del médico\n";
-            std::cout << "2. Dar de baja al médico\n";
-            std::cout << "3. Cancelar\n";
-            std::cout << "Elija una opción: ";
-            std::cin >> opcion;
-
-            switch (opcion) {
-            case 1:
-                modificarMedico(medicos[i]);
-                break;
-            case 2:
-                bajaMedico(i);
-                break;
-            case 3:
-                std::cout << "Operación cancelada.\n";
-                break;
-            default:
-                std::cout << "Opción inválida.\n";
-            }
-            return; // Salir tras manejar el médico
-        }
+void SistemaHospital::cambiarDisponibilidad() {
+    std::string dni;
+    std::cout << "DNI del médico: ";
+    std::cin >> dni;
+    auto it = std::find_if(medicos.begin(), medicos.end(),
+        [dni](const Medico& m) { return m.dni == dni; });
+    if (it != medicos.end()) {
+        it->disponible = !it->disponible;
+        std::cout << "Disponibilidad actualizada a: " << (it->disponible ? "Disponible" : "No disponible") << "\n";
     }
-
-    std::cout << "Médico con DNI " << BuscarDNI << " no encontrado.\n";
+    else {
+        std::cout << "Médico no encontrado.\n";
+    }
 }
+
 
 void SistemaHospital::guardarDatos(const std::string& archivo) {
     std::ofstream file(archivo);

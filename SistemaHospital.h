@@ -19,8 +19,13 @@ public:
     void bajaPaciente();
     void modificarPaciente();
     void buscarPaciente();
+    void modificarHistorialClinico();
+
     void altaMedico();
     void bajaMedico();
+    void modificarEspecialidad();
+    void cambiarDisponibilidad();
+
     void guardarDatos(const std::string& archivo);
     void cargarDatos(const std::string& archivo);
     void hacerBackup(const std::string& archivo);

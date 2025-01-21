@@ -41,9 +41,9 @@ El sistema presenta un menú interactivo con las siguientes opciones:
 ## Requisitos
 Para ejecutar este sistema, necesitas tener:
 
--C++11 o superior instalado en tu compilador
--Un sistema operativo compatible con C++
--Un editor de texto o IDE que soporte la sintaxis del lenguaje
+- C++11 o superior instalado en tu compilador
+- Un sistema operativo compatible con C++
+- Un editor de texto o IDE que soporte la sintaxis del lenguaje
 
 ## Uso
 Para utilizar el sistema, sigue estos pasos:

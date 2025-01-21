@@ -37,3 +37,17 @@ El sistema presenta un menú interactivo con las siguientes opciones:
 - **Persistencia**: Archivos de texto
 
 **Nota**: El código es un sistema hospitalario completo con múltiples funcionalidades de gestión.
+
+## Requisitos
+Para ejecutar este sistema, necesitas tener:
+
+-C++11 o superior instalado en tu compilador
+-Un sistema operativo compatible con C++
+-Un editor de texto o IDE que soporte la sintaxis del lenguaje
+
+## Uso
+Para utilizar el sistema, sigue estos pasos:
+
+1. Compile los archivos Cita.h, Medico.h, Paciente.h y SistemaHospital.cpp.
+2. Ejecuta el archivo main.cpp para iniciar el menú principal.
+3. Introduce una opción en la consola (Gestión de Pacientes, Gestión de Médicos, etc.) para acceder a las funcionalidades relevantes.
